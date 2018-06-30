@@ -252,9 +252,6 @@ for idx in categories:
                                 filter_indices=idx, 
                                 max_iter=500, 
                                 input_modifiers=image_modifiers)
-    
-    # Reverse lookup index to imagenet label and overlay it on the image.
-    img = utils.draw_text(img, utils.get_imagenet_label(idx))
     vis_images.append(img)
 
 # Generate stitched images with 5 cols (so it will have 3 rows).
@@ -263,7 +260,7 @@ stitched = utils.stitch_images(vis_images, cols=5)
 plt.axis('off')
 plt.imshow(stitched)
 plt.show()
-save_img('activation_max_transfer_300.png', stitches)
+save_img('activation_max_transfer_300.png', stitched)
 
 ########################
 # filteri conv slojeva #
