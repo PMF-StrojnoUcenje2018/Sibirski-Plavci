@@ -296,12 +296,12 @@ for layer_name in ['block2_conv2', 'block3_conv3', 'block4_conv3', 'block5_conv3
 # saliency map #
 ################
 
-picasso = utils.load_img('/home/student1/ivsenki/Desktop/Vje-ba/testPicasso.jpg', target_size=(224, 224))
+picasso = utils.load_img('testPicasso.jpg', target_size=(224, 224))
 
 layer_idx = utils.find_layer_idx(model, 'predictions')
   
 # 20 is the index corresponding to picasso
-grad_picasso = visualize_saliency(transfer_vgg16, 
+grad_picasso = visualize_saliency(model, 
                                    layer_idx, 
                                    filter_indices=28,
                                    seed_input=picasso)
@@ -316,13 +316,13 @@ imgFilePath = "golden_gate_matisse.png"
 # imgFilePath = "golden_gate_starry.png"
 # imgFilePath = "golden_gate_escher.png"
 
-img = image.load_img(imgFilePath)
-x = image.img_to_array(img)
+img = load_img(imgFilePath)
+x = img_to_array(img)
 
 img_cropped = center_crop(x, (224, 224))
-img_cropped_array = image.array_to_img(img_cropped)
+img_cropped_array = array_to_img(img_cropped)
 img_cropped_array.show()
 
 x_pred = model.predict_classes(img_cropped.reshape(1, 224, 224, 3), batch_size=1)
-print('Sliku je naslikao: ', label_map[x_pred[0]])
+print('Sliku je naslikao: ', np.argmax(x_pred))
 
